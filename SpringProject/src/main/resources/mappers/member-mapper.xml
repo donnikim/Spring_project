@@ -24,7 +24,20 @@
   	
   	select * 
   	from member
-  	where id=#{id} and pwd=#{pwd} and member_status='Y' 
+  	where id=#{id}
+  	 <!--and pwd=#{pwd}  --> 
+  	 and member_status='Y' 
   	
   	</select>
+  	
+  	<insert id="insertMember">
+  		insert into member 
+		values(#{id},#{pwd},#{name},#{nickName},#{email},#{gender},#{age},#{phone},#{address},SYSDATE,SYSDATE,DEFAULT,DEFAULT)
+  	
+  	
+  	</insert>
+  	
+  	
+  	
+  	
 </mapper>

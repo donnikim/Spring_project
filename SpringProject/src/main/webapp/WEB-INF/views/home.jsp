@@ -23,6 +23,8 @@
 					</p>
 					<c:if test="${empty loginUser }">
 					<button class="btn btn-primary btn-lg" type="button" onclick="location.href='${contextPath}/loginView.me'">SIGN IN</button>
+					<button class="btn btn-success btn-lg" type="button" onclick="location.href='${contextPath}/enroll.me'">SIGN UP</button>
+					<button class="btn btn-warning btn-lg" type="button" onclick="location.href='${contextPath}/findInfo.me'">FIND ID/PW</button>
 					</c:if>
 					<c:if test="${ !empty loginUser}">
 						<br>

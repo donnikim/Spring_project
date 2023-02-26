@@ -1,10 +1,13 @@
 package com.kh.project.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -18,6 +21,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 	
 	@RequestMapping(value="loginView.me", method=RequestMethod.GET)
 	public String loginView() {
@@ -108,20 +114,20 @@ public class MemberController {
 //	}
 	
 //  3. session에 저장할 떄 @SessionAttributes 사용	
-	@RequestMapping(value="login.me",method=RequestMethod.POST)
-	public String login(Member m, Model model ) {
-		Member loginUser =mService.login(m);
-		if(loginUser !=null) {
-			model.addAttribute("loginUser", loginUser);
-			return "redirect:home.do";
-			
-		}else {
-//			model.addAttribute("msg","로그인 실패");
-//			return "../common/errorPage";
-			
-			throw new MemberException("로그인에 실패하였습니다.");
-		}
-	}
+//	@RequestMapping(value="login.me",method=RequestMethod.POST)
+//	public String login(Member m, Model model ) {
+//		Member loginUser =mService.login(m);
+//		if(loginUser !=null) {
+//			model.addAttribute("loginUser", loginUser);
+//			return "redirect:home.do";
+//			
+//		}else {
+////			model.addAttribute("msg","로그인 실패");
+////			return "../common/errorPage";
+//			
+//			throw new MemberException("로그인에 실패하였습니다.");
+//		}
+//	}
 //	@RequestMapping("logout.me")
 //	public String logout(HttpSession session) {
 //		session.invalidate();
@@ -133,6 +139,56 @@ public class MemberController {
 	public String logout(SessionStatus status) {
 		status.setComplete();
 		return "redirect:home.do";
+	}
+	//회원가입 페이지 이동
+	@RequestMapping("enroll.me")
+	public String enroll() {
+		return "enroll";
+	}
+	
+	
+	//암호화 후 로그인
+	@RequestMapping(value="login.me",method=RequestMethod.POST)
+	public String login(Member m, Model model ) {
+		Member loginUser =mService.login(m);
+		
+		System.out.println(bcrypt.encode(m.getPwd()));
+		
+		if(bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
+			model.addAttribute("loginUser", loginUser);
+			return "redirect:home.do";
+			
+		}else {
+//			model.addAttribute("msg","로그인 실패");
+//			return "../common/errorPage";
+			
+			throw new MemberException("로그인에 실패하였습니다.");
+		}
+	}
+	
+	
+	@RequestMapping("insertMember.me")
+	public String insertMember(@ModelAttribute Member m,@RequestParam("emailId") String emailId,@RequestParam("emailDomain") String emailDomain ) {
+		System.out.println(m);
+		//부족한 부분 n가지
+		//1. 한글깨짐
+		//2. 이메일 null
+		//3. 평문 비밀번호 노출
+		
+		String email=null;
+		if(!emailId.trim().equals("")) {
+			email=emailId+"@"+emailDomain;
+		}
+		m.setEmail(email);
+		String encPwd=bcrypt.encode(m.getPwd());
+		m.setPwd(encPwd);
+		int result = mService.insertMember(m);
+		if(result>0) {
+			return "redirect:home.do";
+		}else {
+			throw new MemberException("회원가입실패");
+		}
+		
 	}
 	
 	

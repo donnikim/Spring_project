@@ -8,4 +8,6 @@ public interface MemberDAO {
 
 	Member login(SqlSessionTemplate sqlSession, Member m);
 
+	int insertMember(SqlSessionTemplate sqlSession, Member m);
+
 }

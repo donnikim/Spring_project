@@ -1,5 +1,10 @@
 package com.kh.project.member.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -179,18 +184,27 @@ public class MemberController {
 		if(!emailId.trim().equals("")) {
 			email=emailId+"@"+emailDomain;
 		}
-		m.setEmail(email);
-		String encPwd=bcrypt.encode(m.getPwd());
-		m.setPwd(encPwd);
-		int result = mService.insertMember(m);
-		if(result>0) {
+			m.setEmail(email);
+			String encPwd=bcrypt.encode(m.getPwd());
+			m.setPwd(encPwd);
+			int result = mService.insertMember(m);
+		
+			if(result>0) {
 			return "redirect:home.do";
 		}else {
 			throw new MemberException("회원가입실패");
 		}
 		
 	}
-	
+	@RequestMapping("myInfo.me")
+	public String myInfo(HttpSession session,Model model) {
+		
+		String id = ((Member)session.getAttribute("loginUser")).getId();
+		
+		ArrayList<HashMap<String,Object>> list =mService.selectMyList(id);
+		model.addAttribute("list",list);
+		return "myInfo";
+	}
 	
 	
 }

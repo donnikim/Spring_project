@@ -13,41 +13,41 @@
 		<main>
 			<div class="py-5 text-center">
 				<a href="${ contextPath }/home.do"><img class="d-block mx-auto mb-4" src="${ contextPath }/resources/image/spring.png" alt="" width="130"></a>
-				<h2>Sign Up</h2>
+				<h2>회원 등록</h2>
 			</div>
 
 			<div style="margin-left: 350px; margin-right: 350px;">
 				<form class="needs-validation" action="${ contextPath }/insertMember.me" method="POST">
 					<div class="row g-3">
 						<div class="col-12">
-							<label for="id" class="form-label">ID</label>
+							<label for="id" class="form-label">아이디</label>
 							<input type="text" class="form-control" id="id" name="id" required>
-							<label id="idCheckResult">Please check your ID.</label>
+							<label id="idCheckResult">아이디를 확인 해주세요</label>
 						</div>
 						
 						<div class="col-12">
-							<label for="pwd" class="form-label">PWD</label>
+							<label for="pwd" class="form-label">비밀번호</label>
 							<input type="password" class="form-control" id="pwd" name="pwd" required>
 						</div>
 						
 						<div class="col-12">
-							<label for="pwdConfirm" class="form-label">PWD Confirm</label>
+							<label for="pwdConfirm" class="form-label">비밀번호 확인</label>
 							<input type="password" class="form-control" id="pwdConfirm" required>
 						</div>
 						
 						<div class="col-12">
-							<label for="name" class="form-label">NAME</label>
+							<label for="name" class="form-label">이름</label>
 							<input type="text" class="form-control" id="name" name="name" required>
 						</div>
 						
 						<div class="col-12">
-							<label for="nickName" class="form-label">NICKNAME</label>
+							<label for="nickName" class="form-label">닉네임</label>
 							<input type="text" class="form-control" id="nickName" name="nickName" required>
 							<label id="nickNameCheckResult">Please check your NickName.</label>
 						</div>
 
 						<div class="col-12">
-							<label for="emailId" class="form-label">EMAIL</label>
+							<label for="emailId" class="form-label">이메일</label>
 							<div class="input-group">
 								<input type="text" class="form-control" id="emailId" name="emailId">
 								<span class="input-group-text">@</span>
@@ -61,29 +61,29 @@
 						</div>
 						
 						<div class="col-12">
-							<label class="form-label">GENDER</label><br>
-							<input type="radio" id="man" name="gender" value="M" checked> MAN &nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" id="woman" name="gender" value="F"> WOMAN
+							<label class="form-label">성별</label><br>
+							<input type="radio" id="man" name="gender" value="M" checked> 남자 &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="woman" name="gender" value="F"> 여자
 						</div>
 						
 						<div class="col-12">
-							<label for="age" class="form-label">AGE</label>
+							<label for="age" class="form-label">나이</label>
 							<input type="number" class="form-control" id="age" name="age" min="0" max="100" value="0">
 						</div>
 
 						<div class="col-12">
-							<label for="phone" class="form-label">PHONE</label>
+							<label for="phone" class="form-label">연락처</label>
 							<input type="text" class="form-control" id="phone" name="phone">
 						</div>
 						
 						<div class="col-12">
-							<label for="address" class="form-label">ADDRESS</label>
+							<label for="address" class="form-label">주소</label>
 							<input type="text" class="form-control" id="address" name="address">
 						</div>
 						
 						<br><br><br><br><br>
 						
-						<button class="w-100 btn btn-primary btn-lg">SIGN UP</button>
+						<button class="w-100 btn btn-primary btn-lg">회원 가입</button>
 					</div>
 				</form>
 			</div>
@@ -91,5 +91,13 @@
 
 		<footer class="my-5 pt-5 text-muted text-center text-small"></footer>
 	</div>
+	<script>
+		
+	
+	
+	
+	</script>
+	
+	
 </body>
 </html>

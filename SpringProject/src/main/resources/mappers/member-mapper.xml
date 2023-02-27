@@ -36,7 +36,30 @@
   	
   	
   	</insert>
-  	
+	<select id="selectMyList" resultType="map">
+	
+	<![CDATA[
+	select bi_bt,board_title,bc_rc,md
+	from (select board_id bi_bt,board_title,to_char(board_count)
+		bc_rc,board_modify_date md
+		from board
+		where board_writer='user02'
+		order by board_id desc)
+	where rownum<=5
+	union
+	select *
+	from (select board_type-3,board_title,reply_content,reply_modify_date
+			from reply
+			join board on (board_id=ref_board_id)
+			where reply_writer='user02'
+			order by reply_id desc)
+	where rownum<=5
+	order by bi_bt desc
+	
+	
+	]]>
+	
+	</select>
   	
   	
   	
